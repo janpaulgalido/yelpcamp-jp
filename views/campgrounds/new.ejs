@@ -1,0 +1,80 @@
+<%-include('../partials/header')-%>
+
+<div class="container">
+    <h1 class="text-center mb-5">Create a New Campground</h1>
+    <div class="mx-auto" style="width: 30%">
+        <form action="/campgrounds" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <input
+                    class="form-control"
+                    type="text"
+                    name="campground[name]"
+                    placeholder="name"
+                    autocomplete="off"
+                />
+            </div>
+            <div class="form-group mb-3">
+                <input
+                    class="form-control"
+                    type="number"
+                    name="campground[price]"
+                    placeholder="price"
+                    min="0.01"
+                    step="0.01"
+                    autocomplete="off"
+                />
+            </div>
+            <div class="custom-file mb-3">
+                <label class="custom-file-label" for="customFile"></label>
+                <input
+                    type="file"
+                    class="custom-file-input"
+                    id="customFile"
+                    name="image"
+                    accept="image/*"
+                    required
+                />
+            </div>
+            <img
+                id="previewImage"
+                class="img-thumbnail mb-3"
+                src="/image/no-image-icon-23485.png"
+                alt="Upload Photo"
+                width="100%"
+            />
+            <p class="fileName"></p>
+            <div class="form-group">
+                <textarea
+                    class="form-control"
+                    name="campground[description]"
+                    rows="3"
+                    id="desc"
+                    placeholder="description"
+                ></textarea>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-lg btn-primary btn-block">Submit</button>
+            </div>
+        </form>
+        <a href="/campgrounds">Go Back</a>
+    </div>
+</div>
+
+<script>
+    document.getElementById('customFile').addEventListener('change', getFiles)
+
+    function getFiles() {
+        console.log('I am inside upload event')
+        files = $(this)[0].files
+        name = ''
+        for (var i = 0; i < files.length; i++) {
+            name += `"${files[i].name}"` + (i != files.length - 1 ? ', ' : '')
+        }
+        document.querySelector('.fileName').innerHTML = name
+        document
+            .getElementById('previewImage')
+            .setAttribute('src', URL.createObjectURL(new Blob(files)))
+    }
+</script>
+
+<%-include('../partials/footer')-%>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+            integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+            crossorigin="anonymous"
+        />
+        <link rel="stylesheet" type="text/css" href="/stylesheets/main.css" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+            integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+            crossorigin="anonymous"
+        />
+        <title>YelpCamp</title>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
+            <div class="container-lg">
+                <a class="navbar-brand" href="/">YelpCamp</a>
+
+                <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#navbarNavAltMarkup"
+                    aria-controls="navbarNavAltMarkup"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                >
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a class="nav-item nav-link" href="/campgrounds"
+                            >Home <span class="sr-only">(current)</span></a
+                        >
+                    </div>
+                    <div class="navbar-nav ml-auto">
+                        <% if(!currentUser) { %>
+                        <a class="nav-item nav-link border-right" href="/login"
+                            >Login</a
+                        >
+                        <a class="nav-item nav-link" href="/register"
+                            >Sign Up</a
+                        >
+                        <% } else { %>
+                        <a class="nav-link border-right"
+                            >Signed as <%= currentUser.username[0].toUpperCase()
+                            + currentUser.username.slice(1) %></a
+                        >
+                        <a class="nav-item nav-link" href="/logout">Logout</a>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <% if(message.error && message.error.length > 0) { %>
+            <div
+                class="alert alert-danger alert-dismissible fade show"
+                role="alert"
+            >
+                <h6><%= message.error %></h6>
+                <button
+                    type="button"
+                    class="close"
+                    data-dismiss="alert"
+                    aria-label="Close"
+                >
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <% } %> <% if(message.success && message.success.length > 0) { %>
+            <div
+                class="alert alert-success alert-dismissible fade show"
+                role="alert"
+            >
+                <h6><%= message.success %></h6>
+                <button
+                    type="button"
+                    class="close"
+                    data-dismiss="alert"
+                    aria-label="Close"
+                >
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <% } %>
+        </div>
+
+        <div class="container">
+            <div class="row px-3" style="margin-top: 50px">
+                <div class="col-lg-4">
+                    <img
+                        src="<%= user.avatar %>"
+                        class="img-fluid rounded-circle img-thumbnail shadow"
+                        alt="User Profile"
+                        width="300"
+                    />
+                </div>
+                <div class="col-lg-8" style="margin-top: 50px">
+                    <h1 class="my-3">
+                        <%= `${user.firstname} ${user.lastname}` %>
+                    </h1>
+                    <div class="row">
+                        <div class="mx-3">
+                            <span style="font-size: 1.5em; color: Tomato"
+                                ><i class="fas fa-map-marker-alt"></i
+                            ></span>
+                            <p class="d-inline mx-2">Dasmarinas City, Cavite</p>
+                        </div>
+                        <div class="mx-3">
+                            <span
+                                style="font-size: 1.5em; color: Mediumslateblue"
+                                ><i class="fas fa-link"></i
+                            ></span>
+                            <p class="d-inline mx-2">
+                                <a href="#">www.johndoephotos.com</a>
+                            </p>
+                        </div>
+                    </div>
+
+                    <p class="my-3">
+                        Bacon ipsum dolor amet porchetta frankfurter turkey,
+                        beef tenderloin jerky salami buffalo. Turducken beef
+                        ribs capicola ham. Meatloaf venison drumstick boudin
+                        swine.
+                    </p>
+
+                    <div>
+                        <span
+                            class="badge badge-light shadow-sm border p-2 mx-1"
+                            >Arts</span
+                        >
+                        <span
+                            class="badge badge-light shadow-sm border p-2 mx-1"
+                            >Travels</span
+                        >
+                        <span
+                            class="badge badge-light shadow-sm border p-2 mx-1"
+                            >Photography</span
+                        >
+                    </div>
+
+                    <section class="mt-5">
+                        <h5 class="ml-3">Photos Uploaded</h5>
+                        <p class="text-right">November</p>
+                        <div class="d-flex flex-wrap border shadow p-1">
+                            <% campground.forEach((camp) => { %>
+                            <div class="m-1">
+                                <a href="/campgrounds/<%= camp._id %>">
+                                    <img
+                                        class="img-fluid m-1"
+                                        src="<%= camp.image %>"
+                                        alt="uploaded image"
+                                        width="300px"
+                                /></a>
+                            </div>
+
+                            <% }) %>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+
+        <%- include('../partials/footer') -%>
+    </body>
+</html>

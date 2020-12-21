@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>YelpCamp</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <link rel="stylesheet" href="/stylesheets/landing.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" integrity="sha512-3n19xznO0ubPpSwYCRRBgHh63DrV+bdZfHK52b1esvId4GsfwStQNPJFjeQos2h3JwCmZl0/LgLxSKMAI55hgw==" crossorigin="anonymous" async></script>
+    </head>
+    <body>
+    
+	<div class="container">
+		<% if(message.error && message.error.length > 0) { %>
+			<div class="alert alert-danger alert-dismissible fade show" role="alert">
+			  <h6><%= message.error %></h6>
+			  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			  </button>
+			</div>
+		<% } %>
+		<% if(message.success && message.success.length > 0) { %>
+			<div class="alert alert-success alert-dismissible fade show" role="alert">
+			  <h6><%= message.success %></h6>
+			  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			  </button>
+			</div>
+		<% } %>
+	</div>
+    
+    <div id="landing-header">
+ 		<h1 class="mb-3">Welcome to YelpCamp!</h1>
+		<a href="/campgrounds" class="btn btn-lg btn-success">View All Campgrounds</a>
+    </div>
+    
+    <ul class="slideshow">
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+
+
+
+<%- include('partials/footer') -%>
